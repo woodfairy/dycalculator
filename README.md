@@ -1,6 +1,8 @@
 # dycalculator
 PoC dylib hijacking with the stock macOS calculator app
 
+![Preview GIF](https://media.giphy.com/media/XCTOiXeE7LymvDqMfN/giphy.gif)
+
 ## Useful commands
 
 Compiling the dylib  
