@@ -83,15 +83,18 @@ In the second step, you exchange the implementations using method_exchangeImplem
 Now it's time to write our custom code which will be executed instead of ```-(void)applicationDidFinishLaunching:(void *)arg2```.
 Just implement ```-(void)newApplicationDidFinishLaunching:(void *)arg2``` of ```CalculatorInjectOverrides```.  
 ```objective-c
-NSLog(@"Hooking CalculatorController_applicationDidFinishLaunching");
+-(void)newApplicationDidFinishLaunching:(void *)arg2 
+{
+    NSLog(@"Hooking CalculatorController_applicationDidFinishLaunching");
 
-// run the original method, you can also skip this
-sOriginalApplicationDidFinishLaunching(self, @selector(applicationDidFinishLaunching:), arg2);
-
-// create NSAlert for PoC 
-NSAlert *alert = [NSAlert alertWithMessageText:@"dylib hijacking succesful!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Code succesfully injected using DYLD_INSERT_LIBRARIES."];
-[alert runModal];
-return;
+    // run the original method, you can also skip this
+    sOriginalApplicationDidFinishLaunching(self, @selector(applicationDidFinishLaunching:), arg2);
+    
+    // create NSAlert for PoC 
+    NSAlert *alert = [NSAlert alertWithMessageText:@"dylib hijacking succesful!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Code succesfully injected using DYLD_INSERT_LIBRARIES."];
+    [alert runModal];
+    return;
+}
 ```
 First, we just log that we are hooking the original method, so we now, that our substitute is invoked succesfully.  
 Then, we invoke the original method in order to keep its behavior (but in general, you don't have to!). Further information on this: https://developer.apple.com/documentation/objectivec/objective-c_runtime/imp  
