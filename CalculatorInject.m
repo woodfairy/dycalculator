@@ -31,12 +31,12 @@ static original_applicationDidFinishLaunching_IMP sOriginalApplicationDidFinishL
 {
     NSLog(@"Hooking CalculatorController_applicationDidFinishLaunching");
 
+    // run the original method, you can also skip this
+    sOriginalApplicationDidFinishLaunching(self, @selector(applicationDidFinishLaunching:), arg2);
+
     // create NSAlert for PoC 
     NSAlert *alert = [NSAlert alertWithMessageText:@"dylib hijacking succesful!" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Code succesfully injected using DYLD_INSERT_LIBRARIES."];
     [alert runModal];
-
-    // run the original method, you can also skip this
-    sOriginalApplicationDidFinishLaunching(self, @selector(applicationDidFinishLaunching:), arg2);
     return;
 }
 
